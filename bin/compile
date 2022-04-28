@@ -42,11 +42,24 @@ mkdir -p "$LIBMAXMINDDB_CACHE_DIST_DIR"
 echo "       Downloading GeoLite2 City and Country data"
 
 # see https://dev.maxmind.com/geoip/geoipupdate/ (Direct Downloads version)
-wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
-     "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
 
-wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
+if [[ -s "$ENV_DIR/GEOIP_CITY_DOWNLOAD_LINK" ]]
+then
+	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
+     "$(cat $ENV_DIR/GEOIP_CITY_DOWNLOAD_LINK)"
+else
+	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
+     "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
+fi
+
+if [[ -s "$ENV_DIR/GEOIP_COUNTRY_DOWNLOAD_LINK" ]]
+then
+	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
+     "$(cat $ENV_DIR/GEOIP_COUNTRY_DOWNLOAD_LINK)"
+else
+	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
      "https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=$MAXMIND_LICENSE_KEY&suffix=tar.gz"
+fi
 
 echo "       Unzipping GeoLite2 City and Country data"
 
