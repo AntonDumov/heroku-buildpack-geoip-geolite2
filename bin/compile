@@ -54,7 +54,7 @@ fi
 
 if [[ -s "$ENV_DIR/GEOIP_COUNTRY_DOWNLOAD_LINK" ]]
 then
-	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_CITY_TARBALL_FILENAME" \
+	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
      "$(cat $ENV_DIR/GEOIP_COUNTRY_DOWNLOAD_LINK)"
 else
 	wget --quiet --output-document "$GEOIP_CACHE_DIR/$GEOLITE2_COUNTRY_TARBALL_FILENAME" \
